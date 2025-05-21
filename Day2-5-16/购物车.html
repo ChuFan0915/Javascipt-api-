@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>原生 JS 购物车</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    button { padding: 4px 8px; }
+  </style>
+</head>
+<body>
+  <h1>🛒 我的购物车</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>商品名</th><th>单价</th><th>数量</th><th>小计</th><th>操作</th>
+      </tr>
+    </thead>
+    <tbody id="cart-body"></tbody>
+  </table>
+
+  <h3>🧾 全部商品总价：<span id="total-price">￥0</span></h3>
+
+  <script>
+    let cartData = [
+      { id: 1, name: '手机',  price: 2000, count: 1 },
+      { id: 2, name: '耳机',  price:  300, count: 2 },
+      { id: 3, name: '充电器', price:  100, count: 1 }
+    ];
+
+    const tbody  = document.getElementById('cart-body');
+    const totalEl = document.getElementById('total-price');
+    // 渲染函数
+    function fetchList(){
+        tbody.innerHTML=''
+        cartData.forEach(item=>{
+            const tr=document.createElement('tr')
+            tr.innerHTML=`
+            <td>${item.name}</td>
+            <td>${item.price}</td>
+            <td>
+                <button class="increase" data-id="${item.id}">+</button>
+                <button class="decrease" data-id="${item.id}">-</button>
+                    <span>${item.count}</span>
+            </td>
+            <td>
+                ${item.price*item.count}
+            </td>
+            <td>
+                <button class="delete" data-id="${item.id}">删除</button>
+            </td>
+            `
+              tbody.appendChild(tr)
+        })
+        totalEl.innerHTML=cartData.reduce((sum,item)=>sum+(item.count*item.price),0)
+    }
+    // 做出购物车事件
+
+   fetchList()
+   tbody.addEventListener('click',e=>{
+    const id=+e.target.dataset.id
+    const item=cartData.find(item=>item.id===id)
+    if(!item) return
+   if(e.target.classList.contains('increase')){
+    item.count++
+   }else if(e.target.classList.contains('decrease')){
+    if(item.count>0)item.count-- 
+   }else if(e.target.classList.contains('delete')){
+   const Iscon=confirm(`确定要删除该${item.name}吗？`)
+   if(Iscon){
+    cartData=cartData.filter(item=>item.id!=id)
+   }
+   }
+    fetchList();
+   })
+  </script>
+</body>
+</html>
