@@ -121,7 +121,8 @@ const findPath=(tree,id)=>{
     for (const item of tree) {
         if(item.id===id){
             return [item.id]
-        }if(item.children&&item.children.length>0){
+        }
+        if(item.children&&item.children.length>0){
             result.push(item.id)
             const found=findPath(item.children,id)
             if(found){
