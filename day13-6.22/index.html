@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .container-header{
+            height: 80px;
+            line-height: 80px;
+        }
+        .container-main{
+            display: flex;
+            gap:10px;
+        }
+        .main-sidebar{
+            height: 100%;
+            width: 240px;
+        }
+        .main-content{
+            flex: 1;
+            overflow-y: auto;
+        }
+        .container-footer{
+            height: 60px;
+            line-height: 60px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="container-header">头部</header>
+        <main class="container-main">
+            <div class="main-sidebar"></div>
+            <div class="main-content"></div>
+        </main>
+        <footer class="container-footer"></footer>
+
+    </div>
+</body>
+</html>
